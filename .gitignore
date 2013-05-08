@@ -62,6 +62,7 @@ node_modules
 *.project
 .settings/*
 *.settings/
+atlassian-ide-plugin.xml
 
 # Maven files
 ######################
