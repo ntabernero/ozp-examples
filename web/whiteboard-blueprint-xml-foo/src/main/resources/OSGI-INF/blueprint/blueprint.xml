@@ -8,25 +8,42 @@
     <!--</bean>-->
     <!--<service ref="testHttpContext" interface="org.ops4j.pax.web.extender.whiteboard.HttpContextMapping"/>-->
 
-    <!--<service ref="testHttpContext" interface="org.ozoneplatform.examples.web.context.TestSharedWebContainerContext" />-->
+    <!--<reference id="testHttpContext" interface="org.ozoneplatform.examples.TestSharedWebContainerContextInterface">-->
+    <!--</reference>-->
+    <!--<bean id="testHttpContextMapping" class="org.ozoneplatform.examples.web.context.TestHttpContextMapping" init-method="init">-->
+        <!--<property name="httpContextId" value="testHttpContext"/>-->
+        <!--<property name="httpContext" ref="testHttpContext"/>-->
+        <!--<property name="bundle" ref="blueprintBundle"/>-->
+        <!--<property name="path" value="test"/>-->
+    <!--</bean>-->
     <!--<service ref="testHttpContextMapping" interface="org.ops4j.pax.web.extender.whiteboard.HttpContextMapping"/>-->
 
+    <reference id="testHttpContextMapping" interface="org.ozoneplatform.examples.TestHttpContextMappingInterface">
+    </reference>
+    <service ref="testHttpContextMapping" interface="org.ozoneplatform.examples.TestHttpContextMappingInterface">
+        <registration-listener registration-method="register" unregistration-method="unregister">
+            <bean class="org.ozoneplatform.examples.TestHttpContextMappingListener">
+                <property name="bundle" ref="blueprintBundle"/>
+            </bean>
+        </registration-listener>
+    </service>
+    <service ref="testHttpContextMapping" interface="org.ops4j.pax.web.extender.whiteboard.HttpContextMapping"/>
 
     <bean id="fooFilter" class="org.ozoneplatform.examples.web.filters.FooFilter"/>
     <service ref="fooFilter" interface="javax.servlet.Filter">
         <service-properties>
             <entry key="urlPatterns">
                 <array value-type="java.lang.String">
-                    <value>/*</value>
+                    <value>/foo/*</value>
                 </array>
             </entry>
             <entry key="filter-name" value="fooFilter"/>
-            <!--<entry key="httpContext.id" value="testHttpContext"/>-->
+            <entry key="httpContext.id" value="testHttpContext"/>
         </service-properties>
     </service>
 
     <bean id="foojspMapping" class="org.ops4j.pax.web.extender.whiteboard.runtime.DefaultJspMapping">
-        <!--<property name="httpContextId" value="testHttpContext"/>-->
+        <property name="httpContextId" value="testHttpContext"/>
         <property name="urlPatterns">
             <array value-type="java.lang.String">
                 <value>/foo/index.jsp</value>
@@ -40,7 +57,7 @@
         <service-properties>
             <entry key="alias" value="/foo/*"/>
             <entry key="servlet-name" value="fooDefaultServlet"/>
-            <!--<entry key="httpContext.id" value="testHttpContext"/>-->
+            <entry key="httpContext.id" value="testHttpContext"/>
         </service-properties>
     </service>
 
@@ -49,7 +66,7 @@
         <service-properties>
             <entry key="alias" value="/foo/servlet/Foo"/>
             <entry key="servlet-name" value="fooServlet"/>
-            <!--<entry key="httpContext.id" value="testHttpContext"/>-->
+            <entry key="httpContext.id" value="testHttpContext"/>
         </service-properties>
     </service>
 </blueprint>

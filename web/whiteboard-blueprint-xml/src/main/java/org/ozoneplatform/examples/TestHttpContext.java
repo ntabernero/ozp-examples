@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.ozoneplatform.examples.web.context;
+package org.ozoneplatform.examples;
 
 import org.ops4j.lang.NullArgumentException;
 import org.ops4j.pax.web.service.WebContainerContext;

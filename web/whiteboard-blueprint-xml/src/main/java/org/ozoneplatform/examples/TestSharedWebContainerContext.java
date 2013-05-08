@@ -14,10 +14,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.ozoneplatform.examples.web.context;
+package org.ozoneplatform.examples;
 
-//import org.ops4j.pax.web.service.SharedWebContainerContext;
-import org.ops4j.pax.web.service.WebContainerContext;
 import org.ops4j.pax.web.service.spi.util.Path;
 import org.osgi.framework.Bundle;
 import org.slf4j.Logger;
@@ -33,17 +31,12 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-public class TestSharedWebContainerContext implements WebContainerContext {
+public class TestSharedWebContainerContext implements TestSharedWebContainerContextInterface {
 	
 	private Queue<Bundle> bundles = new ConcurrentLinkedQueue<Bundle>();
 	private static final Logger LOG = LoggerFactory.getLogger(TestSharedWebContainerContext.class);
 	
 	
-	public void setRegisterBundle(Bundle bundle) {
-		if (!bundles.contains(bundle)) {
-			bundles.add(bundle);
-		}
-	}
 	public boolean registerBundle(Bundle bundle) {
 		if (!bundles.contains(bundle)) {
 			bundles.add(bundle);
