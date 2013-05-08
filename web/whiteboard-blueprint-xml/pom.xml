@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>org.ozoneplatform.examples</groupId>
+        <artifactId>web</artifactId>
+        <version>8.0.0-ALPHA-SPRINT7-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.ozoneplatform.examples</groupId>
+    <artifactId>whiteboard-blueprint-xml</artifactId>
+    <version>8.0.0-ALPHA-SPRINT7-SNAPSHOT</version>
+
+    <name>Ozone Platform :: Examples :: Whiteboard Blueprint XML example</name>
+    <description>Creates a Web Application by registering Servlets, Filters and other Web Classes in the Blueprint xml</description>
+    <packaging>bundle</packaging>
+
+    <dependencies>
+        <!-- Provided dependencies -->
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.core</artifactId>
+            <version>4.1.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.compendium</artifactId>
+            <version>4.1.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.ops4j.pax.web</groupId>
+            <artifactId>pax-web-runtime</artifactId>
+            <version>1.1.9</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.ops4j.pax.web</groupId>
+            <artifactId>pax-web-extender-whiteboard</artifactId>
+            <version>1.1.9</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.6.6</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>2.3.5</version>
+                <extensions>true</extensions>
+                <inherited>true</inherited>
+                <configuration>
+                    <instructions>
+                        <Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
+                        <Private-Package>org.ozoneplatform.examples.web.*</Private-Package>
+                        <Export-Package>!org.ozoneplatform.examples.web.*</Export-Package>
+                        <!--<Meta-Persistence></Meta-Persistence>-->
+                        <Import-Package>
+                            *
+                        </Import-Package>
+                        <_wab>src/main/webapp</_wab>
+                        <Bundle-ClassPath>
+                            WEB-INF/classes,
+                            <!-- Have to use this for PAX Web 0.7.4 to find JSPs since it uses classpath. -->
+                            .
+                        </Bundle-ClassPath>
+                    </instructions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
