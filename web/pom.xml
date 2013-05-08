@@ -20,7 +20,7 @@
 
     <modules>
         <module>whiteboard-blueprint-xml</module>
-        <!--<module>foo-whiteboard-blueprint-xml</module>-->
+        <module>whiteboard-blueprint-xml-foo</module>
     </modules>
 
 </project>

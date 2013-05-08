@@ -1,0 +1,41 @@
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd">
+
+    <bean id="testHttpContext" class="org.ops4j.pax.web.extender.whiteboard.runtime.DefaultHttpContextMapping">
+        <property name="httpContextId" value="testHttpContext"/>
+        <property name="path" value="test"/>
+    </bean>
+    <service ref="testHttpContext" interface="org.ops4j.pax.web.extender.whiteboard.HttpContextMapping"/>
+
+    <bean id="fooFilter" class="org.ozoneplatform.examples.web.filters.FooFilter"/>
+    <service ref="fooFilter" interface="javax.servlet.Filter">
+        <service-properties>
+            <entry key="urlPatterns">
+                <array value-type="java.lang.String">
+                    <value>/*</value>
+                </array>
+            </entry>
+            <entry key="filter-name" value="fooFilter"/>
+            <entry key="httpContext.id" value="testHttpContext"/>
+        </service-properties>
+    </service>
+
+    <bean id="fooDefaultServlet" class="org.eclipse.jetty.servlet.DefaultServlet"/>
+    <service ref="fooDefaultServlet" interface="javax.servlet.Servlet">
+        <service-properties>
+            <entry key="alias" value="/foo/*"/>
+            <entry key="servlet-name" value="fooDefaultServlet"/>
+            <entry key="httpContext.id" value="testHttpContext"/>
+        </service-properties>
+    </service>
+
+    <bean id="fooServlet" class="org.ozoneplatform.examples.web.servlets.FooServlet"/>
+    <service ref="fooServlet" interface="javax.servlet.Servlet">
+        <service-properties>
+            <entry key="alias" value="/foo/servlet/Foo"/>
+            <entry key="servlet-name" value="fooServlet"/>
+            <entry key="httpContext.id" value="testHttpContext"/>
+        </service-properties>
+    </service>
+</blueprint>

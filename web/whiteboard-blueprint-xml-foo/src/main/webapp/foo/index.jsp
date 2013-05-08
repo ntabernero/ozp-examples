@@ -4,13 +4,13 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Whiteboard Blueprint Xml Web App</title>
+        <title>Whiteboard Blueprint Xml Web App - Foo</title>
     </head>
     <body>
-    <h1>Hello World</h1>
-    <img height="200" width="200" src="images/hello-world.jpg"/><br/>
+    <h1>Foo - Hello World</h1>
+    <img height="200" width="200" src="images/foo_wallpaper.sized.jpg"/><br/>
 
-    <a href="./servlet/Test">TestServlet</a>
+    <a href="./servlet/Foo">FooServlet</a>
     <c:set var="now" value="<%=new java.util.Date()%>" />
     <p>The Date is: <fmt:formatDate type="both"
                                            dateStyle="long" timeStyle="long"
